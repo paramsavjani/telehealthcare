@@ -3,7 +3,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FNavbar } from "../../../components/main/final_navbar";
-import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
+import { fetchRedis } from "@/helpers/redis";
 
 export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
@@ -11,7 +12,8 @@ export default function Page({ params }) {
   const doctor_id_new = doctor_id.split("-").join(" "); // Modify the doctor_id as needed
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
-  const router=useRouter();
+  const session = useSession();
+
   useEffect(() => {
     async function fetchDoctors() {
       try {
@@ -63,15 +65,31 @@ export default function Page({ params }) {
                 className="w-32 h-32 rounded-lg object-cover border-4 border-blue-500 mr-8"
               />
               <div className="flex-1">
-                <h2 className="text-2xl font-semibold text-blue-600 mb-4">{doctor.name}</h2>
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4">
+                  {doctor.name}
+                </h2>
                 <div className="text-gray-700 space-y-1">
-                  <p><strong>Specialty:</strong> {doctor.specialty}</p>
-                  <p><strong>Degree:</strong> {doctor.degree}</p>
-                  <p><strong>Rating:</strong> {doctor.rating} / 5</p>
-                  <p><strong>Consulting Fee:</strong> ₹{doctor.consulting_fee}</p>
-                  <p><strong>Description:</strong> {doctor.description}</p>
-                  <p><strong>Email:</strong> {doctor.email_id}</p>
-                  <p><strong>Experience:</strong> {doctor.experience} years</p>
+                  <p>
+                    <strong>Specialty:</strong> {doctor.specialty}
+                  </p>
+                  <p>
+                    <strong>Degree:</strong> {doctor.degree}
+                  </p>
+                  <p>
+                    <strong>Rating:</strong> {doctor.rating} / 5
+                  </p>
+                  <p>
+                    <strong>Consulting Fee:</strong> ₹{doctor.consulting_fee}
+                  </p>
+                  <p>
+                    <strong>Description:</strong> {doctor.description}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {doctor.email_id}
+                  </p>
+                  <p>
+                    <strong>Experience:</strong> {doctor.experience} years
+                  </p>
                 </div>
                 <div className="mt-6">
                   <button
@@ -84,8 +102,34 @@ export default function Page({ params }) {
                 {showOptions && selectedDoctor === doctor.name && (
                   <div className="mt-6 flex space-x-4">
                     <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-                      onClick={handleChat}
+                      className="option-button"
+                      onClick={async () => {
+                        if (!session.data) {
+                          alert("Please login to continue");
+                          return;
+                        }
+
+                        const isAlreadyAdded = await fetchRedis(
+                          "sismember",
+                          `user:${doctor._id}:incoming_friend_requests`,
+                          session.user.id
+                        );
+                        if (isAlreadyAdded) {
+                          alert("Friend request already sent");
+                          return;
+                        }
+                        const isAlreadyFriends = await fetchRedis(
+                          "sismember",
+                          `user:${session.user.id}:friends`,
+                          doctor._id
+                        );
+                        if (isAlreadyFriends) {
+                          alert("Already friends");
+                          return;
+                        }
+                        db.sadd(`user:${doctor._id}:friends`, session.user.id);
+                        db.sadd(`user:${session.user.id}:friends`, doctor._id);
+                      }}
                     >
                       Chat
                     </button>

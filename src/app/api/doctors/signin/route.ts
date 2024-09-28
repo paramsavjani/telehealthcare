@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       experience,
       specialization,
     };
-
+    console.log(newDoctor);
     // Insert the new doctor document into the database
     await collection.insertOne(newDoctor);
 
@@ -73,8 +73,11 @@ export async function POST(req: NextRequest) {
           email: doctor.email,
           emailVerified: true,
           name: doctor.name,
+          image:
+            "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",
         })
       );
+
       await fetchRedis(
         "set",
         `user:email:${doctor.email}`,

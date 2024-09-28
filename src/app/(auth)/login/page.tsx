@@ -38,18 +38,15 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-       
-
         let doctor = data.message;
-        
         await signIn("credentials", {
           email: formData.email,
           password: formData.password,
-          id:doctor._id,
-          name:doctor.name,
-          image:"https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg"
+          id: doctor._id,
+          name: doctor.name,
+          image:
+            "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",
         });
-        
       } else {
         setError(data.message || "An error occurred during login.");
       }
