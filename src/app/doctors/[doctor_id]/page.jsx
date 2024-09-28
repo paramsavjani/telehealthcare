@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FNavbar } from "../../../components/main/final_navbar";
+import { useRouter } from 'next/navigation';
 
 export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
@@ -10,7 +11,7 @@ export default function Page({ params }) {
   const doctor_id_new = doctor_id.split("-").join(" "); // Modify the doctor_id as needed
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
-
+  const router=useRouter();
   useEffect(() => {
     async function fetchDoctors() {
       try {
@@ -38,8 +39,8 @@ export default function Page({ params }) {
     setShowOptions(false); // Hide options after selecting
   };
 
-  const handleVideoCall = () => {
-    alert(`Video call initiated with Dr. ${selectedDoctor}!`);
+  const handleVideoCall = (doctor_id) => {
+    router.push(`/videocall/${doctor_id}`)
     setShowOptions(false); // Hide options after selecting
   };
 
@@ -90,7 +91,7 @@ export default function Page({ params }) {
                     </button>
                     <button
                       className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-                      onClick={handleVideoCall}
+                      onClick={()=>{handleVideoCall(doctor._id)}}
                     >
                       Video Call
                     </button>
