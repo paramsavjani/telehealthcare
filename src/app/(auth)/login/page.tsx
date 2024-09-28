@@ -41,7 +41,6 @@ const LoginPage: React.FC = () => {
         console.log("Login successful:", data.message);
 
         let doctor = data.message;
-        console.log(doctor);
         await signIn("credentials", {
           email: formData.email,
           password: formData.password,
