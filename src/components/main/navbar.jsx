@@ -26,7 +26,7 @@ const NavBar = () => {
                 fill
                 referrerPolicy="no-referrer"
                 className="object-cover rounded-full"
-                src={session?.user?.image || "/default-avatar.png"} // Fallback image for users without a profile picture
+                src={session?.user?.image || "/default-avatar.png"}
                 alt="Your profile picture"
               />
             </div>
