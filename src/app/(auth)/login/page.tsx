@@ -113,26 +113,6 @@ const Page: FC = () => {
                     </>
                 )}
             </button>
-            <button
-                className="button"
-                onClick={loginWithGitHub}
-                disabled={isLoading[1]}
-            >
-                {isLoading[1] ? (
-                    <span>Loading...</span>
-                ) : (
-                    <>
-                        <Image
-                            src="/github-icon.svg"
-                            width={100}
-                            height={100}
-                            alt="GitHub Icon"
-                            className="button-icon"
-                        />
-                        Sign in with GitHub
-                    </>
-                )}
-            </button>
         </div>
     );
 };

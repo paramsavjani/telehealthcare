@@ -2,7 +2,6 @@ import { NextAuthOptions } from "next-auth";
 import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { db } from "./db";
 import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
 import { fetchRedis } from "@/helpers/redis";
 
 function getCredentials(provider: String) {
@@ -31,7 +30,7 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         GoogleProvider(getCredentials("GOOGLE")),
-        GitHubProvider(getCredentials("GITHUB")),
+        // GitHubProvider(getCredentials("GITHUB")),
     ],
     callbacks: {
         async jwt({ token, user }) {
