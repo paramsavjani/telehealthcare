@@ -22,10 +22,7 @@ export async function POST(req: NextRequest) {
     const db = client.db(dbName);
     const collection = db.collection("doctors_table");
 
-    const doctors = await collection
-      .find({ specialty: new_doctor_id })
-      .sort({ rating: -1 })
-      .toArray();
+    const doctors = await collection.find({}).toArray();
 
     return NextResponse.json(doctors, { status: 200 });
   } catch (error) {

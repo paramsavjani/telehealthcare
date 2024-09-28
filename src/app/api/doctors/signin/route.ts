@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       experience,
       specialization,
     };
-
+    console.log(newDoctor);
     // Insert the new doctor document into the database
     await collection.insertOne(newDoctor);
 
