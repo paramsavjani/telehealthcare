@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     }
 
     // If email and password are correct, return success
-    return NextResponse.json({ message: "Login successful." }, { status: 200 });
+    return NextResponse.json({ message: doctor }, { status: 200 });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     return NextResponse.json(

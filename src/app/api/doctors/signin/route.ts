@@ -57,7 +57,6 @@ export async function POST(req: NextRequest) {
       degree,
       experience,
       specialization,
-      createdAt: new Date(), // Optional: store creation date
     };
 
     // Insert the new doctor document into the database
@@ -65,7 +64,7 @@ export async function POST(req: NextRequest) {
 
     // Return a success response
     return NextResponse.json(
-      { message: "Doctor signed up successfully." },
+      { message: newDoctor },
       { status: 201 }
     );
   } catch (error) {

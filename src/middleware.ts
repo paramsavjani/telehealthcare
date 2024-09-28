@@ -4,27 +4,18 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   async function middleware(req) {
-    // const pathname = req.nextUrl.pathname;
+    const pathname = req.nextUrl.pathname;
 
-    // const isAuth = await getToken({ req });
-    // const isLoginPage = pathname.startsWith("/login");
+    const isAuth = await getToken({ req });
 
-    // const sensitiveRoutes = ["/dashboard"];
-    // const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
-    //   pathname.startsWith(route)
-    // );
+    const sensitiveRoutes = ["/dashboard", "/videocall"];
+    const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
+      pathname.startsWith(route)
+    );
 
-    // if (isLoginPage) {
-    //   if (isAuth) {
-    //     return NextResponse.redirect(new URL("/", req.url));
-    //   }
-
-    //   return NextResponse.next();
-    // }
-
-    // if (!isAuth && isAccessingSensitiveRoute) {
-    //   return NextResponse.redirect(new URL("/login", req.url));
-    // }
+    if (!isAuth && isAccessingSensitiveRoute) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   },
   {
     callbacks: {
@@ -36,5 +27,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/", "/login", "/dashboard/:path*"],
+  matcher: ["/", "/login", "/videocall/:path*", "/dashboard/:path*"],
 };
