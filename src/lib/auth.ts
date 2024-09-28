@@ -30,7 +30,6 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         GoogleProvider(getCredentials("GOOGLE")),
-        // GitHubProvider(getCredentials("GITHUB")),
     ],
     callbacks: {
         async jwt({ token, user }) {
