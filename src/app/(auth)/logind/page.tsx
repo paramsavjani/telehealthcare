@@ -25,7 +25,6 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Make the API call to /api/doctor/login
     try {
       const response = await fetch("/api/doctors/login", {
         method: "POST",
@@ -39,6 +38,17 @@ const LoginPage: React.FC = () => {
 
       if (response.ok) {
         console.log("Login successful:", data.message);
+        
+
+
+
+
+
+
+
+
+
+
       } else {
         setError(data.message || "An error occurred during login.");
       }
