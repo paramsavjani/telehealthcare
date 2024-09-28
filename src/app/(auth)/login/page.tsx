@@ -38,9 +38,13 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login successful:", data.message);
+       
 
         let doctor = data.message;
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 7dc73ee214762c10bc04d90279e01b2f847c94ca
         await signIn("credentials", {
           email: formData.email,
           password: formData.password,

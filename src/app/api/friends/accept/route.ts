@@ -9,6 +9,10 @@ import { z } from "zod";
 export async function POST(req: Request) {
     try {
       const body = await req.json();
+<<<<<<< HEAD
+=======
+     
+>>>>>>> 7dc73ee214762c10bc04d90279e01b2f847c94ca
 
       const { id: idToAdd } = z.object({ id: z.string() }).parse(body);
 

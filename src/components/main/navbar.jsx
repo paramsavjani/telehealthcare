@@ -9,7 +9,6 @@ import PopUp from "./PopUp";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   return (
@@ -22,18 +21,10 @@ const NavBar = () => {
           Med<span className="text-blue-400">Connect</span>
         </a>
         <ul className="flex space-x-8 text-base font-medium">
+          
           <li>
             <a
-              href="#"
-              className="text-gray-300 hover:text-white relative group"
-            >
-              Find Doctors
-              <span className="block h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
+              href="/appointment"
               className="text-gray-300 hover:text-white relative group"
             >
               Video Consult
@@ -42,7 +33,7 @@ const NavBar = () => {
           </li>
           <li>
             <a
-              href="#"
+              href={status === "authenticated"?'/dashboard':'/'}
               className="text-gray-300 hover:text-white relative group"
             >
               Chat with Doctor

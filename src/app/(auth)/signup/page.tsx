@@ -68,7 +68,6 @@ const SignupPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Signup successful:", data.message);
 
         let doctor = data.message;
         await signIn("credentials", {

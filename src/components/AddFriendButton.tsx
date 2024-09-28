@@ -31,6 +31,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = () => {
             email = email.toLowerCase();
             setLoading(true);
             const validatedEmail = AddFriendSchema.parse({ email });
+           
             await axios.post("/api/friends/add", { email: validatedEmail });
 
             setShowSuccessState(true);
