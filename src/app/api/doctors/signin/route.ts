@@ -65,8 +65,21 @@ export async function POST(req: NextRequest) {
     const doctor = await collection.findOne({ email });
 
     if (doctor) {
-      await fetchRedis("set", `user:${doctor._id}`, JSON.stringify(doctor));
-      await fetchRedis("set", `user:email:${doctor.email}`, JSON.stringify(doctor));
+      await fetchRedis(
+        "set",
+        `user:${doctor._id}`,
+        JSON.stringify({
+          id: doctor._id,
+          email: doctor.email,
+          emailVerified: true,
+          name: doctor.name,
+        })
+      );
+      await fetchRedis(
+        "set",
+        `user:email:${doctor.email}`,
+        JSON.stringify(doctor._id)
+      );
     } else {
       return NextResponse.json(
         { message: "Doctor not found after insertion." },
