@@ -4,7 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FNavbar } from "../../../components/main/final_navbar";
 import { useSession } from "next-auth/react";
-import { fetchRedis } from "@/helpers/redis";
 
 export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
@@ -104,31 +103,18 @@ export default function Page({ params }) {
                     <button
                       className="option-button"
                       onClick={async () => {
+                        console.log(session.data.user.id);
                         if (!session.data) {
                           alert("Please login to continue");
                           return;
                         }
-
-                        const isAlreadyAdded = await fetchRedis(
-                          "sismember",
-                          `user:${doctor._id}:incoming_friend_requests`,
-                          session.user.id
+                        const response = await axios.post(
+                          "/api/appointments/chat",
+                          {
+                            doctor_id: doctor._id,
+                            user_id: session.data.user.id,
+                          }
                         );
-                        if (isAlreadyAdded) {
-                          alert("Friend request already sent");
-                          return;
-                        }
-                        const isAlreadyFriends = await fetchRedis(
-                          "sismember",
-                          `user:${session.user.id}:friends`,
-                          doctor._id
-                        );
-                        if (isAlreadyFriends) {
-                          alert("Already friends");
-                          return;
-                        }
-                        db.sadd(`user:${doctor._id}:friends`, session.user.id);
-                        db.sadd(`user:${session.user.id}:friends`, doctor._id);
                       }}
                     >
                       Chat
