@@ -162,7 +162,7 @@ const CardsList = () => {
           <p style={cardPriceStyle}>₹{card.price}</p>
           <p style={cardDescriptionStyle}>{card.description}</p>
           <a
-            href={"/" + card.title.split(" ").join("-")}
+            href={"/doctors" + card.title.split(" ").join("-")}
             style={cardLinkStyle}
             onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "#007bff")}
