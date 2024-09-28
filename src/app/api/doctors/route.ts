@@ -3,8 +3,7 @@
 import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-const url =
-  "mongodb+srv://nidhidodiya174:GbfdBH53CQc2cSu8@cluster0.sbofj.mongodb.net/";
+const url ="mongodb+srv://nidhidodiya174:GbfdBH53CQc2cSu8@cluster0.sbofj.mongodb.net/";
 const dbName = "Nidhi_Mahek_db";
 
 export async function POST(req: NextRequest) {
