@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FNavbar } from "../../../components/main/final_navbar";
 
 export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
@@ -29,6 +30,8 @@ export default function Page({ params }) {
   };
 
   return (
+    <>
+    <FNavbar/>
     <div className="container">
       <h1 className="title">{doctor_id}</h1>
       <div className="doctor-profiles">
@@ -131,5 +134,6 @@ export default function Page({ params }) {
         }
       `}</style>
     </div>
+    </>
   );
 }
