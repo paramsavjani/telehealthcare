@@ -87,28 +87,87 @@ const CardsList = () => {
     },
   ];
 
+  // Inline styles
+  const cardStyle = {
+    width: "250px",
+    padding: "20px",
+    background: "linear-gradient(145deg, rgb(245 245 245), rgb(255 255 255))",
+    borderRadius: "15px",
+    boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.2)",
+    textAlign: "center",
+    margin: "15px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    transition: "transform 0.3s, box-shadow 0.3s",
+  };
+
+  const cardImageStyle = {
+    width: "80px",
+    height: "80px",
+    marginBottom: "15px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    border: "2px solid #ddd",
+  };
+
+  const cardTitleStyle = {
+    fontSize: "18px",
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: "10px",
+  };
+
+  const cardPriceStyle = {
+    fontSize: "16px",
+    color: "#888",
+    marginBottom: "15px",
+  };
+
+  const cardDescriptionStyle = {
+    fontSize: "14px",
+    color: "#555",
+    marginBottom: "20px",
+    padding: "0 10px",
+  };
+
+  const cardLinkStyle = {
+    color: "#007bff",
+    textDecoration: "none",
+    fontWeight: "bold",
+    padding: "8px 15px",
+    backgroundColor: "#007bff",
+    borderRadius: "20px",
+    color: "#fff",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+    transition: "background-color 0.3s",
+  };
+
   return (
-    <div className="flex flex-wrap justify-center p-4 bg-gray-100">
+    <div
+      style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+    >
       {cardsData.map((card) => (
         <div
           key={card.id}
-          className="max-w-xs m-4 p-6 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105"
+          style={cardStyle}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.transform = "scale(1.05)")
+          }
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         >
-          <img
-            src={card.imageUrl}
-            alt={card.title}
-            className="w-24 h-24 object-cover rounded-t-lg" // Smaller image size
-          />
-          <h3 className="text-xl font-semibold text-gray-800 mt-4">
-            {card.title}
-          </h3>
-          <p className="text-lg text-gray-600">₹{card.price}</p>
-          <p className="text-sm text-gray-500 mt-2">{card.description}</p>
+          <img src={card.imageUrl} alt={card.title} style={cardImageStyle} />
+          <h3 style={cardTitleStyle}>{card.title}</h3>
+          <p style={cardPriceStyle}>₹{card.price}</p>
+          <p style={cardDescriptionStyle}>{card.description}</p>
           <a
             href="#"
-            className="inline-block mt-4 px-4 py-2 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
+            style={cardLinkStyle}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = "#007bff")}
           >
-            Consult now &nbsp; &gt;
+            Consult now
           </a>
         </div>
       ))}
