@@ -74,7 +74,7 @@ const SignupPage: React.FC = () => {
         await signIn("credentials", {
           email: formData.email,
           password: formData.password,
-          id: doctor.id,
+          id: doctor._id,
           name: doctor.name,
           image:
             "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",

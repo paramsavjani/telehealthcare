@@ -10,8 +10,9 @@ import { toPusherKey } from "@/lib/utils";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
+        console.log(body);
         const { email: emailToAdd } = AddFriendSchema.parse(body.email);
-
+        console.log(emailToAdd);
         const idToAdd = (await fetchRedis(
             "get",
             `user:email:${emailToAdd}`
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
             );
         }
         const session = await getServerSession(authOptions);
+        console.log(session?.user.id);
         if (!session) {
             return new Response("Please login first", { status: 401 });
         }

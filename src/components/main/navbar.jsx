@@ -9,6 +9,7 @@ import PopUp from "./PopUp";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
+  console.log(session);
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   return (
@@ -20,7 +21,35 @@ const NavBar = () => {
         >
           Med<span className="text-blue-400">Connect</span>
         </a>
-
+        <ul className="flex space-x-8 text-base font-medium">
+          <li>
+            <a
+              href="#"
+              className="text-gray-300 hover:text-white relative group"
+            >
+              Find Doctors
+              <span className="block h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="text-gray-300 hover:text-white relative group"
+            >
+              Video Consult
+              <span className="block h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="text-gray-300 hover:text-white relative group"
+            >
+              Chat with Doctor
+              <span className="block h-0.5 bg-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </a>
+          </li>
+        </ul>
         {status === "authenticated" ? (
           <div className="flex items-center gap-4">
             <div className="relative h-10 w-10 bg-gray-50 rounded-full overflow-hidden">
@@ -64,20 +93,19 @@ const NavBar = () => {
               </a>
             </li>
             <li>
-            <Dialog>
+              <Dialog>
                 <DialogTrigger>
-                <a
-                href="#"
-                className="px-4 py-2 bg-gray-100 text-gray-900 rounded-full shadow-md hover:bg-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-gray-300"
-              >
-                Login as Patient
-              </a>
+                  <a
+                    href="#"
+                    className="px-4 py-2 bg-gray-100 text-gray-900 rounded-full shadow-md hover:bg-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-gray-300"
+                  >
+                    Login as Patient
+                  </a>
                 </DialogTrigger>
                 <DialogContent className="p-0 w-auto bg-transparent border-none">
-                    <PopUp/>
+                  <PopUp />
                 </DialogContent>
-            </Dialog>
-             
+              </Dialog>
             </li>
           </ul>
         )}

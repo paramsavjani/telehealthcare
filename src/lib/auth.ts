@@ -37,45 +37,65 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: "Email",
           type: "text",
-          placeholder: "your-email@example.com",
         },
         password: { label: "Password", type: "password" },
         id: { label: "ID", type: "text" },
         name: { label: "Name", type: "text" },
-        image : {label:"Image",type:"text"}
+        image: { label: "Image", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials) {
           return null;
         }
-        const { email, password, id,name,image } = credentials;
+
+        const { email, password, id, name, image } = credentials;
 
         return {
           id: id,
           email: email,
           password: password,
-          name:name,
-          image:image
+          name: name,
+          image: image,
         };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id; // Store the user ID in the JWT
-        token.email = user.email; // Store the user email in the JWT
-        token.name = user.name; // Store the user name in the JWT
-        token.picture=user.image;
+      const dbUserResult = (await fetchRedis("get", `user:${token.id}`)) as
+        | string
+        | null;
+
+      if (!dbUserResult) {
+        if (user) {
+          token.id = user.id; // Store the user ID in the JWT
+          console.log("this is the token id");
+          console.log(token.id);
+          token.email = user.email; // Store the user email in the JWT
+          token.name = user.name; // Store the user name in the JWT
+          token.picture = user.image;
+        }
+        return token;
       }
-      return token;
+
+      const dbUser = JSON.parse(dbUserResult);
+
+      return {
+        ...token,
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+      };
     },
     async session({ session, token }) {
       if (token) {
+        console.log("session id");
         session.user.id = token.id; // Attach user ID to session
+        console.log(session);
         session.user.email = token.email; // Attach user email to session
         session.user.name = token.name; // Attach user name to session
-        session.user.image=token.picture;
+        session.user.image = token.picture;
       }
       return session;
     },
