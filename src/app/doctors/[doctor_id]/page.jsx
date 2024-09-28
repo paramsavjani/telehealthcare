@@ -7,6 +7,8 @@ export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
   const { doctor_id } = params;
   const doctor_id_new = doctor_id.split("-").join(" "); // Modify the doctor_id as needed
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     async function fetchDoctors() {
@@ -25,7 +27,19 @@ export default function Page({ params }) {
 
   // Function to handle booking appointment
   const handleBookAppointment = (doctorName) => {
-    alert(`Appointment booked with Dr. ${doctorName}!`);
+    setSelectedDoctor(doctorName);
+    setShowOptions(true); // Show options after booking
+  };
+
+  // Functions to handle Chat and Video Call
+  const handleChat = () => {
+    alert(`Chat initiated with Dr. ${selectedDoctor}!`);
+    setShowOptions(false); // Hide options after selecting
+  };
+
+  const handleVideoCall = () => {
+    alert(`Video call initiated with Dr. ${selectedDoctor}!`);
+    setShowOptions(false); // Hide options after selecting
   };
 
   return (
@@ -53,6 +67,16 @@ export default function Page({ params }) {
                   Book Appointment
                 </button>
               </div>
+              {showOptions && selectedDoctor === doctor.name && (
+                <div className="options-container">
+                  <button className="option-button" onClick={handleChat}>
+                    Chat
+                  </button>
+                  <button className="option-button" onClick={handleVideoCall}>
+                    Video Call
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -127,6 +151,25 @@ export default function Page({ params }) {
           font-size: 1.1rem;
         }
         .book-appointment:hover {
+          transform: scale(1.05); /* Slight scaling effect on hover */
+        }
+        .options-container {
+          display: flex;
+          gap: 10px;
+          margin-top: 10px; /* Space above options */
+        }
+        .option-button {
+          padding: 10px 15px;
+          background: #007bff; /* Blue background color */
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+          font-weight: bold;
+        }
+        .option-button:hover {
+          background: #0056b3; /* Darker blue on hover */
           transform: scale(1.05); /* Slight scaling effect on hover */
         }
       `}</style>
