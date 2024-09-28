@@ -4,6 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import PopUp from "./PopUp";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -62,12 +64,20 @@ const NavBar = () => {
               </a>
             </li>
             <li>
-              <a
-                href="/login"
+            <Dialog>
+                <DialogTrigger>
+                <a
+                href="#"
                 className="px-4 py-2 bg-gray-100 text-gray-900 rounded-full shadow-md hover:bg-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-gray-300"
               >
                 Login
               </a>
+                </DialogTrigger>
+                <DialogContent className="p-0 w-auto bg-transparent border-none">
+                    <PopUp/>
+                </DialogContent>
+            </Dialog>
+             
             </li>
           </ul>
         )}
