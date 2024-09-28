@@ -69,8 +69,6 @@ export const authOptions: NextAuthOptions = {
       if (!dbUserResult) {
         if (user) {
           token.id = user.id; // Store the user ID in the JWT
-          console.log("this is the token id");
-          console.log(token.id);
           token.email = user.email; // Store the user email in the JWT
           token.name = user.name; // Store the user name in the JWT
           token.picture = user.image;
@@ -90,9 +88,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        console.log("session id");
         session.user.id = token.id; // Attach user ID to session
-        console.log(session);
         session.user.email = token.email; // Attach user email to session
         session.user.name = token.name; // Attach user name to session
         session.user.image = token.picture;

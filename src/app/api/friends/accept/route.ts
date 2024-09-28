@@ -9,7 +9,7 @@ import { z } from "zod";
 export async function POST(req: Request) {
     try {
       const body = await req.json();
-      console.log("Request body:", body); // Check if `id` exists in the request body
+     
 
       const { id: idToAdd } = z.object({ id: z.string() }).parse(body);
 

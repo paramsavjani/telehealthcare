@@ -38,10 +38,10 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login successful:", data.message);
+       
 
         let doctor = data.message;
-        console.log(doctor);
+        
         await signIn("credentials", {
           email: formData.email,
           password: formData.password,

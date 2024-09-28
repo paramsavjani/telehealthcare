@@ -30,7 +30,7 @@ const SlidebarChatList: FC<SlidebarChatListProps> = ({
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
         const newFriendHandler = (newFriend: User) => {
-            console.log("received new user", newFriend);
+            
             setActiveChats((prev) => [...prev, newFriend]);
         };
 

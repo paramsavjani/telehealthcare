@@ -29,7 +29,7 @@ export default function Page({ params }) {
   // Function to handle booking appointment
   const handleBookAppointment = (doctorName) => {
     setSelectedDoctor(doctorName);
-    setShowOptions(true); // Show options after booking
+    setShowOptions(true); // Toggle options after booking
   };
 
   // Functions to handle Chat and Video Call
@@ -45,138 +45,62 @@ export default function Page({ params }) {
 
   return (
     <>
-    <FNavbar/>
-    <div className="container">
-      <h1 className="title">{doctor_id}</h1>
-      <div className="doctor-profiles">
-        {doctors.map((doctor) => (
-          <div key={doctor._id} className="doctor-profile">
-            <img src={doctor.image_url} alt={doctor.name} className="doctor-image" />
-            <div className="doctor-details">
-              <h2 className="doctor-name">{doctor.name}</h2>
-              <p><strong>Specialty:</strong> {doctor.specialty}</p>
-              <p><strong>Degree:</strong> {doctor.degree}</p>
-              <p><strong>Rating:</strong> {doctor.rating} / 5</p>
-              <p><strong>Consulting Fee:</strong> ₹{doctor.consulting_fee}</p>
-              <p><strong>Description:</strong> {doctor.description}</p>
-              <p><strong>Email:</strong> {doctor.email_id}</p>
-              <p><strong>Password:</strong> {doctor.password}</p>
-              <p><strong>Experience:</strong> {doctor.experience} years</p>
-              <div className="button-container">
-                <button 
-                  className="book-appointment" 
-                  onClick={() => handleBookAppointment(doctor.name)}
-                >
-                  Book Appointment
-                </button>
-              </div>
-              {showOptions && selectedDoctor === doctor.name && (
-                <div className="options-container">
-                  <button className="option-button" onClick={handleChat}>
-                    Chat
-                  </button>
-                  <button className="option-button" onClick={handleVideoCall}>
-                    Video Call
+      <FNavbar />
+      <div className="max-w-7xl mx-auto p-8 bg-gray-50 rounded-lg shadow-lg">
+        <h1 className="text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 mb-10">
+          {doctor_id}
+        </h1>
+        <div className="space-y-8">
+          {doctors.map((doctor) => (
+            <div
+              key={doctor._id}
+              className="flex flex-col sm:flex-row items-center bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              <img
+                src={doctor.image_url}
+                alt={doctor.name}
+                className="w-32 h-32 rounded-lg object-cover border-4 border-blue-500 mr-8"
+              />
+              <div className="flex-1">
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4">{doctor.name}</h2>
+                <div className="text-gray-700 space-y-1">
+                  <p><strong>Specialty:</strong> {doctor.specialty}</p>
+                  <p><strong>Degree:</strong> {doctor.degree}</p>
+                  <p><strong>Rating:</strong> {doctor.rating} / 5</p>
+                  <p><strong>Consulting Fee:</strong> ₹{doctor.consulting_fee}</p>
+                  <p><strong>Description:</strong> {doctor.description}</p>
+                  <p><strong>Email:</strong> {doctor.email_id}</p>
+                  <p><strong>Experience:</strong> {doctor.experience} years</p>
+                </div>
+                <div className="mt-6">
+                  <button
+                    className="px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-lg hover:scale-105 transition-transform"
+                    onClick={() => handleBookAppointment(doctor.name)}
+                  >
+                    Book Appointment
                   </button>
                 </div>
-              )}
+                {showOptions && selectedDoctor === doctor.name && (
+                  <div className="mt-6 flex space-x-4">
+                    <button
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                      onClick={handleChat}
+                    >
+                      Chat
+                    </button>
+                    <button
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                      onClick={handleVideoCall}
+                    >
+                      Video Call
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <style jsx>{`
-        .container {
-          max-width: 1200px;
-          margin: auto;
-          padding: 20px;
-          background-color: #eef2f3; /* Light background color */
-          border-radius: 10px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .title {
-          text-align: center;
-          background: linear-gradient(90deg, #007bff, #00c6ff); /* Gradient color */
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent; /* Makes the text transparent to show gradient */
-          margin-bottom: 30px;
-          font-size: 2.5rem;
-          font-weight: bold;
-          padding: 10px; /* Padding for the heading */
-        }
-        .doctor-profiles {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-        .doctor-profile {
-          display: flex;
-          border: 1px solid #ccc;
-          padding: 20px;
-          border-radius: 8px;
-          background-color: #ffffff; /* White background for profiles */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          align-items: center;
-          transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
-        }
-        .doctor-profile:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-        }
-        .doctor-image {
-          width: 120px;
-          height: 120px;
-          border-radius: 8px; /* Rounded corners */
-          object-fit: cover;
-          margin-right: 30px; /* Increased space between image and details */
-          border: 2px solid #007bff; /* Border color */
-        }
-        .doctor-details {
-          flex: 1;
-        }
-        .doctor-name {
-          font-size: 1.8rem;
-          color: #007bff; /* Bright blue color for names */
-          margin-bottom: 10px;
-        }
-        .button-container {
-          text-align: center; /* Center button */
-          margin-top: 10px; /* Space above button */
-        }
-        .book-appointment {
-          padding: 10px 20px;
-          background: linear-gradient(90deg, #007bff, #00c6ff); /* Gradient color */
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
-          font-weight: bold;
-          font-size: 1.1rem;
-        }
-        .book-appointment:hover {
-          transform: scale(1.05); /* Slight scaling effect on hover */
-        }
-        .options-container {
-          display: flex;
-          gap: 10px;
-          margin-top: 10px; /* Space above options */
-        }
-        .option-button {
-          padding: 10px 15px;
-          background: #007bff; /* Blue background color */
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
-          font-weight: bold;
-        }
-        .option-button:hover {
-          background: #0056b3; /* Darker blue on hover */
-          transform: scale(1.05); /* Slight scaling effect on hover */
-        }
-      `}</style>
-    </div>
     </>
   );
 }
