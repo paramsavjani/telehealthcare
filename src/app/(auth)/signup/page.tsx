@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 interface FormData {
@@ -68,7 +69,16 @@ const SignupPage: React.FC = () => {
 
       if (response.ok) {
         console.log("Signup successful:", data.message);
-        // Optionally, redirect to another page or clear the form
+
+        let doctor = data.message;
+        await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          id: doctor.id,
+          name: doctor.name,
+          image:
+            "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",
+        });
       } else {
         setError(data.message || "An error occurred during signup.");
       }
