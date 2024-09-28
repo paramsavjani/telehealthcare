@@ -13,8 +13,7 @@ export default function Lobby() {
   }, [router, value]);
 
   return (
-    <div className="lobby-container">
-      <h1>Lobby</h1>
+    <>
       <input
         type="text"
         value={value}
@@ -25,6 +24,6 @@ export default function Lobby() {
       <button onClick={handleJoinRoom} className="join-button">
         Join
       </button>
-    </div>
+    </>
   );
 }
