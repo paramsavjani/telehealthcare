@@ -1,5 +1,6 @@
 // /src/app/api/doctor/signin/route.ts
 
+import { fetchRedis } from "@/helpers/redis";
 import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -48,7 +49,6 @@ export async function POST(req: NextRequest) {
       ); // Conflict
     }
 
-
     // Create a new doctor document
     const newDoctor = {
       name,
@@ -62,11 +62,20 @@ export async function POST(req: NextRequest) {
     // Insert the new doctor document into the database
     await collection.insertOne(newDoctor);
 
+    const doctor = await collection.findOne({ email });
+
+    if (doctor) {
+      await fetchRedis("set", `user:${doctor._id}`, JSON.stringify(doctor));
+      await fetchRedis("set", `user:email:${doctor.email}`, JSON.stringify(doctor));
+    } else {
+      return NextResponse.json(
+        { message: "Doctor not found after insertion." },
+        { status: 500 }
+      );
+    }
+
     // Return a success response
-    return NextResponse.json(
-      { message: newDoctor },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: newDoctor }, { status: 201 });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     return NextResponse.json(
