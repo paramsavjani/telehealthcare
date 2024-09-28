@@ -60,7 +60,7 @@ const NavBar = () => {
                 href="/login"
                 className="px-4 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-blue-400"
               >
-                Sign In
+                Login as Doctor
               </a>
             </li>
             <li>
@@ -70,7 +70,7 @@ const NavBar = () => {
                 href="#"
                 className="px-4 py-2 bg-gray-100 text-gray-900 rounded-full shadow-md hover:bg-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-gray-300"
               >
-                Login
+                Login as Patient
               </a>
                 </DialogTrigger>
                 <DialogContent className="p-0 w-auto bg-transparent border-none">

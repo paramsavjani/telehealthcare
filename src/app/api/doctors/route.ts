@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   const client = new MongoClient(url);
 
   const body = await req.json();
-  
+
   const { doctor_id } = body;
 
   let new_doctor_id = doctor_id
