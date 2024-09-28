@@ -12,6 +12,7 @@ const LoginPage: React.FC = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null); // Error state
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,21 +25,26 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Simulate an API call to check registration
-    const registeredDoctors = [
-      { email: "doctor@example.com", password: "password123" }, // Example doctor
-    ];
+    // Make the API call to /api/doctor/login
+    try {
+      const response = await fetch("/api/doctors/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const isRegistered = registeredDoctors.some(
-      (doctor) =>
-        doctor.email === formData.email && doctor.password === formData.password
-    );
+      const data = await response.json();
 
-    if (isRegistered) {
-      console.log("Login successful:", formData);
-      // Redirect to the doctor dashboard
-    } else {
-      // If not registered, redirect to sign-up page
+      if (response.ok) {
+        console.log("Login successful:", data.message);
+      } else {
+        setError(data.message || "An error occurred during login.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("An error occurred during login.");
     }
   };
 
@@ -48,6 +54,7 @@ const LoginPage: React.FC = () => {
         <h2 className="mb-6 text-3xl font-bold text-center text-gray-800">
           Doctor Login
         </h2>
+        {error && <div className="mb-4 text-center text-red-500">{error}</div>}
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label
