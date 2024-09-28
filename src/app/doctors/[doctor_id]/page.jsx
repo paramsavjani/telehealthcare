@@ -40,8 +40,8 @@ export default function Page({ params }) {
     setShowOptions(false); // Hide options after selecting
   };
 
-  const handleVideoCall = () => {
-    alert(`Video call initiated with Dr. ${selectedDoctor}!`);
+  const handleVideoCall = (doctor_id) => {
+    router.push(`/videocall/${doctor_id}`)
     setShowOptions(false); // Hide options after selecting
   };
 
@@ -121,7 +121,7 @@ export default function Page({ params }) {
                     </button>
                     <button
                       className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-                      onClick={handleVideoCall}
+                      onClick={()=>{handleVideoCall(doctor._id)}}
                     >
                       Video Call
                     </button>
