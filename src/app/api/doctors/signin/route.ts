@@ -65,24 +65,24 @@ export async function POST(req: NextRequest) {
     const doctor = await collection.findOne({ email });
 
     if (doctor) {
-      await fetchRedis(
-        "set",
-        `user:${doctor._id}`,
-        JSON.stringify({
-          id: doctor._id,
-          email: doctor.email,
-          emailVerified: true,
-          name: doctor.name,
-          image:
-            "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",
-        })
-      );
+      // await fetchRedis(
+      //   "set",
+      //   `user:${doctor._id}`,
+      //   JSON.stringify({
+      //     id: doctor._id,
+      //     email: doctor.email,
+      //     emailVerified: true,
+      //     name: doctor.name,
+      //     image:
+      //       "https://static.vecteezy.com/system/resources/previews/004/201/722/original/online-doctor-physician-professional-with-stethoscope-consultant-medical-protection-covid-19-flat-style-icon-free-vector.jpg",
+      //   })
+      // );
 
-      await fetchRedis(
-        "set",
-        `user:email:${doctor.email}`,
-        JSON.stringify(doctor._id)
-      );
+      // await fetchRedis(
+      //   "set",
+      //   `user:email:${doctor.email}`,
+      //   JSON.stringify(doctor._id)
+      // );
     } else {
       return NextResponse.json(
         { message: "Doctor not found after insertion." },
