@@ -1,5 +1,3 @@
-// /src/app/[doctor_id]/page.tsx
-
 "use client";
 
 import axios from "axios";
@@ -16,7 +14,6 @@ export default function Page({ params }) {
         const response = await axios.post("/api/doctors/", {
           doctor_id: doctor_id_new,
         });
-        console.log("Doctors:", response.data);
         setDoctors(response.data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
@@ -24,7 +21,7 @@ export default function Page({ params }) {
     }
 
     fetchDoctors();
-  }, [doctor_id_new]); // Add doctor_id_new as a dependency
+  }, [doctor_id_new]); 
 
   return (
     <div>
