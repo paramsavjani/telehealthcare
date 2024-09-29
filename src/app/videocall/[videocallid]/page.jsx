@@ -21,7 +21,7 @@ export default function Page() {
         appID,
         serverSecret,
         videocallid,
-        "noid",
+        session.data?.user?.id,
         session.data?.user?.name
       );
 
