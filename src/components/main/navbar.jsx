@@ -18,7 +18,7 @@ const NavBar = () => {
           href="#"
           className="text-white text-3xl font-extrabold tracking-wide hover:text-gray-300 transition-transform duration-300 ease-in-out transform hover:scale-110 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 rounded"
         >
-          Med<span className="text-blue-400">Connect</span>
+          We<span className="text-blue-400">Med</span>
         </a>
         <ul className="flex space-x-8 text-base font-medium">
           
