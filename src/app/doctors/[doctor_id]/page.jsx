@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FNavbar } from "../../../components/main/final_navbar";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }) {
   const [doctors, setDoctors] = useState([]);
@@ -39,7 +40,7 @@ export default function Page({ params }) {
     alert(`Chat initiated with Dr. ${selectedDoctor}!`);
     setShowOptions(false); // Hide options after selecting
   };
-
+  const router=useRouter();
   const handleVideoCall = (doctor_id) => {
     router.push(`/videocall/${doctor_id}`)
     setShowOptions(false); // Hide options after selecting
